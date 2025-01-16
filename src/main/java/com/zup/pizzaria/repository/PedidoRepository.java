@@ -1,7 +1,7 @@
 package com.zup.pizzaria.repository;
 
-import com.zup.pizzaria.models.Pedido;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.zup.pizzaria.dtos.PedidoDTO;
 
-public interface PedidoRepository extends JpaRepository<Pedido, Long> {
+public interface PedidoRepository {
+    void save(PedidoDTO pedidoDTO);
 }

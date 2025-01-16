@@ -1,13 +1,8 @@
 package com.zup.pizzaria.dtos;
 
-public class PedidoDTO {
+public class PedidoRequestDTO {
     private String descricao;
     private Long clienteId;
-
-    public PedidoDTO(Long clienteId, String descricao) {
-        this.clienteId = clienteId;
-        this.descricao = descricao;
-    }
 
     public String getDescricao() {
         return descricao;
