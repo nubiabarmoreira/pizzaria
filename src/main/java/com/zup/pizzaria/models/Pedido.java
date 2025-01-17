@@ -18,6 +18,9 @@ public class Pedido {
         this.descricao = descricao;
     }
 
+    public Pedido() {
+    }
+
     public Long getId() {
         return id;
     }
