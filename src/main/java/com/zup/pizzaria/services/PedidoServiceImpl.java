@@ -23,7 +23,7 @@ public class PedidoServiceImpl implements PedidoService {
     public PedidoResponseDTO criarPedido(PedidoRequestDTO pedidoRequestDTO) {
         ClienteDTO clienteDTO = clienteRepository
                 .findById(pedidoRequestDTO.getClienteId());
-        PedidoDTO pedidoDTO = new PedidoDTO(clienteDTO.getId(), pedidoRequestDTO.getDescricao());
+        PedidoDTO pedidoDTO = new PedidoDTO(pedidoRequestDTO.getDescricao(), pedidoRequestDTO.getValorTotal(), pedidoRequestDTO.getStatus(), clienteDTO.getId());
         pedidoRepository.save(pedidoDTO);
 
         return new PedidoResponseDTO(clienteDTO.getNome(), clienteDTO.getEmail(), pedidoRequestDTO.getDescricao());

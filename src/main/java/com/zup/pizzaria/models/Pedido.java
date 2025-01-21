@@ -11,11 +11,15 @@ public class Pedido {
     private String descricao;
     private Double valorTotal;
     private Status status;
-    private Long clienteId;
+    @ManyToOne
+    @JoinColumn(name = "cliente_id", referencedColumnName = "id", nullable = false)
+    private Cliente cliente;
 
-    public Pedido(Long clienteId, String descricao) {
-        this.clienteId = clienteId;
+    public Pedido(String descricao, Double valorTotal, Status status, Cliente cliente) {
         this.descricao = descricao;
+        this.valorTotal = valorTotal;
+        this.status = status;
+        this.cliente = cliente;
     }
 
     public Pedido() {
@@ -53,11 +57,11 @@ public class Pedido {
         this.status = status;
     }
 
-    public Long getClienteId() {
-        return clienteId;
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setClienteId(Long clienteId) {
-        this.clienteId = clienteId;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 }
