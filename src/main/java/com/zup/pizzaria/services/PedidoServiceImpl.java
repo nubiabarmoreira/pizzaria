@@ -9,6 +9,9 @@ import com.zup.pizzaria.repository.PedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class PedidoServiceImpl implements PedidoService {
     @Autowired
@@ -25,5 +28,19 @@ public class PedidoServiceImpl implements PedidoService {
 
         return new PedidoResponseDTO(clienteDTO.getNome(), clienteDTO.getEmail(), pedidoRequestDTO.getDescricao());
     }
+
+    @Override
+    public List<PedidoResponseDTO> listarTodosPedidos() {
+        List<PedidoDTO> pedidoDTO = pedidoRepository.findAll();
+
+        return pedidoDTO.stream()
+                .map(pedido -> {
+                    // Buscar cliente para cada pedido
+                    ClienteDTO clienteDTO = clienteRepository.findById(pedido.getClienteId());
+                    return new PedidoResponseDTO(clienteDTO.getNome(), clienteDTO.getEmail(), pedido.getDescricao());
+                })
+                .collect(Collectors.toList());
+    }
+
 
 }
