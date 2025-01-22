@@ -30,6 +30,13 @@ public class PedidoServiceImpl implements PedidoService {
     }
 
     @Override
+    public PedidoResponseDTO buscarPedidoPorId(Long id) {
+        PedidoDTO pedidoDTO = pedidoRepository.findById(id);
+        ClienteDTO clienteDTO = clienteRepository.findById(pedidoDTO.getClienteId());
+        return new PedidoResponseDTO(clienteDTO.getNome(), clienteDTO.getEmail(), pedidoDTO.getDescricao());
+    }
+
+    @Override
     public List<PedidoResponseDTO> listarTodosPedidos() {
         List<PedidoDTO> pedidoDTO = pedidoRepository.findAll();
 

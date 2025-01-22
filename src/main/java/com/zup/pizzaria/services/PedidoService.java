@@ -8,5 +8,7 @@ import java.util.List;
 public interface PedidoService {
     PedidoResponseDTO criarPedido(PedidoRequestDTO pedidoRequestDTO);
 
+    PedidoResponseDTO buscarPedidoPorId(Long id);
+
     List<PedidoResponseDTO> listarTodosPedidos();
 }

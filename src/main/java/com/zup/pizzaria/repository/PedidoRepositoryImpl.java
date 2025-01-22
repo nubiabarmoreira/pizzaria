@@ -27,6 +27,14 @@ public class PedidoRepositoryImpl implements PedidoRepository {
     }
 
     @Override
+    public PedidoDTO findById(Long id) {
+        Pedido pedido = jpaPedidoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Pedido não encontrado"));
+        PedidoDTO pedidoDTO = new PedidoDTO(pedido.getDescricao(), pedido.getValorTotal(), pedido.getStatus(), pedido.getId());
+        return pedidoDTO;
+    }
+
+    @Override
     public List<PedidoDTO> findAll() {
         List<Pedido> pedidos = jpaPedidoRepository.findAll();
         return pedidos.stream()
