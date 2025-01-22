@@ -20,8 +20,10 @@ public class ClienteRepositoryImpl implements ClienteRepository {
     }
 
     @Override
-    public void save(ClienteDTO clienteDTO) {
+    public ClienteDTO save(ClienteDTO clienteDTO) {
         Cliente cliente = new Cliente(clienteDTO.getNome(), clienteDTO.getEmail());
-        jpaClienteRepository.save(cliente);
+        Cliente clienteSalvo = jpaClienteRepository.save(cliente);
+
+        return new ClienteDTO(clienteSalvo.getId(), clienteSalvo.getNome(), clienteSalvo.getEmail());
     }
 }
