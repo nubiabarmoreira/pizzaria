@@ -1,6 +1,7 @@
 package com.zup.pizzaria.repository;
 
 import com.zup.pizzaria.dtos.PedidoDTO;
+import com.zup.pizzaria.exceptions.PedidoNaoEncontradoException;
 import com.zup.pizzaria.models.Cliente;
 import com.zup.pizzaria.models.Pedido;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class PedidoRepositoryImpl implements PedidoRepository {
     @Override
     public PedidoDTO findById(Long id) {
         Pedido pedido = jpaPedidoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Pedido não encontrado"));
+                .orElseThrow(() -> new PedidoNaoEncontradoException("Pedido com ID " + id + " não foi encontrado."));
         PedidoDTO pedidoDTO = new PedidoDTO(pedido.getDescricao(), pedido.getValorTotal(), pedido.getStatus(), pedido.getId());
         return pedidoDTO;
     }
