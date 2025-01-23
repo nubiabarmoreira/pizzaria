@@ -16,9 +16,7 @@ public class ClienteDTO {
         this.email = email;
     }
 
-    public ClienteDTO(){
-
-    }
+    public ClienteDTO(){}
 
     public Long getId() {
         return id;
