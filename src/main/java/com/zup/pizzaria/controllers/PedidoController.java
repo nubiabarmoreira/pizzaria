@@ -21,6 +21,12 @@ public class PedidoController {
         return ResponseEntity.ok(pedidoResponseDTO);
     }
 
+    @GetMapping("{id}")
+    public ResponseEntity<PedidoResponseDTO> buscarPedidoPorId(@PathVariable Long id) {
+        PedidoResponseDTO pedidoResponseDTO = pedidoService.buscarPedidoPorId(id);
+        return ResponseEntity.ok(pedidoResponseDTO);
+    }
+
     @GetMapping
     public ResponseEntity<List<PedidoResponseDTO>> listarTodosPedidos() {
         List<PedidoResponseDTO> pedidosResponse = pedidoService.listarTodosPedidos();
