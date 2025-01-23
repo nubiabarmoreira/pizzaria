@@ -11,6 +11,13 @@ public class ClienteDTO {
         this.email = email;
     }
 
+    public ClienteDTO(String nome, String email){
+        this.nome = nome;
+        this.email = email;
+    }
+
+    public ClienteDTO(){}
+
     public Long getId() {
         return id;
     }
