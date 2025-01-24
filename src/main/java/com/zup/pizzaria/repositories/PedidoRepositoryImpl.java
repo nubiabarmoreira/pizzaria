@@ -1,4 +1,4 @@
-package com.zup.pizzaria.repository;
+package com.zup.pizzaria.repositories;
 
 import com.zup.pizzaria.dtos.PedidoDTO;
 import com.zup.pizzaria.exceptions.PedidoNaoEncontradoException;

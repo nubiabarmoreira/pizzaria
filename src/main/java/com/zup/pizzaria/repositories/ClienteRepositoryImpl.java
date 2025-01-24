@@ -1,4 +1,4 @@
-package com.zup.pizzaria.repository;
+package com.zup.pizzaria.repositories;
 
 import com.zup.pizzaria.dtos.ClienteDTO;
 import com.zup.pizzaria.models.Cliente;

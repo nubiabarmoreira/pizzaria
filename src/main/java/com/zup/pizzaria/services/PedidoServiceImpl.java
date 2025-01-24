@@ -4,8 +4,8 @@ import com.zup.pizzaria.dtos.ClienteDTO;
 import com.zup.pizzaria.dtos.PedidoDTO;
 import com.zup.pizzaria.dtos.PedidoRequestDTO;
 import com.zup.pizzaria.dtos.PedidoResponseDTO;
-import com.zup.pizzaria.repository.ClienteRepository;
-import com.zup.pizzaria.repository.PedidoRepository;
+import com.zup.pizzaria.repositories.ClienteRepository;
+import com.zup.pizzaria.repositories.PedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
