@@ -49,5 +49,37 @@ public class PedidoServiceImpl implements PedidoService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public PedidoResponseDTO atualizarDadosDoPedido(Long id, PedidoRequestDTO pedidoRequestDTO) {
+        PedidoDTO pedidoDTO = pedidoRepository.findById(id);
+
+        if(pedidoRequestDTO.getDescricao() != null && !pedidoRequestDTO.getDescricao().isEmpty()) {
+            pedidoDTO.setDescricao(pedidoRequestDTO.getDescricao());
+        }
+
+        if (pedidoRequestDTO.getValorTotal() != null && pedidoRequestDTO.getValorTotal() > 0) {
+            pedidoDTO.setValorTotal(pedidoRequestDTO.getValorTotal());
+        }
+
+        if (pedidoRequestDTO.getStatus() != null) {
+            pedidoDTO.setStatus(pedidoRequestDTO.getStatus());
+        }
+
+        if (pedidoRequestDTO.getClienteId() != null) {
+            pedidoDTO.setClienteId(pedidoRequestDTO.getClienteId());
+        }
+
+        pedidoRepository.update(id, pedidoDTO);
+
+        ClienteDTO clienteDTO = clienteRepository.findById(pedidoDTO.getClienteId());
+
+        PedidoResponseDTO pedidoResponseDTO = new PedidoResponseDTO(
+                clienteDTO.getNome(),
+                clienteDTO.getEmail(),
+                pedidoDTO.getDescricao()
+        );
+
+        return pedidoResponseDTO;
+    }
 
 }

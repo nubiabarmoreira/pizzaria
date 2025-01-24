@@ -36,6 +36,29 @@ public class PedidoRepositoryImpl implements PedidoRepository {
     }
 
     @Override
+    public PedidoDTO update(Long id, PedidoDTO pedidoDTO) {
+        Pedido pedido = jpaPedidoRepository.findById(id)
+                .orElseThrow(() -> new PedidoNaoEncontradoException("Pedido com ID " + id + " não foi encontrado."));
+
+        pedido.setDescricao(pedidoDTO.getDescricao());
+        pedido.setValorTotal(pedidoDTO.getValorTotal());
+        pedido.setStatus(pedidoDTO.getStatus());
+
+        Cliente cliente = jpaClienteRepository.findById(pedidoDTO.getClienteId())
+                .orElseThrow(() -> new ClienteNaoEncontradoException("Cliente com ID " + pedidoDTO.getClienteId() + " não foi encontrado."));
+        pedido.setCliente(cliente);
+
+        Pedido pedidoAtualizado = jpaPedidoRepository.save(pedido);
+
+        return new PedidoDTO(
+                pedidoAtualizado.getDescricao(),
+                pedidoAtualizado.getValorTotal(),
+                pedidoAtualizado.getStatus(),
+                pedidoAtualizado.getCliente().getId()
+        );
+    }
+
+    @Override
     public List<PedidoDTO> findAll() {
         List<Pedido> pedidos = jpaPedidoRepository.findAll();
         return pedidos.stream()

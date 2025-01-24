@@ -29,8 +29,14 @@ public class PedidoController {
 
     @GetMapping
     public ResponseEntity<List<PedidoResponseDTO>> listarTodosPedidos() {
-        List<PedidoResponseDTO> pedidosResponse = pedidoService.listarTodosPedidos();
-        return ResponseEntity.ok(pedidosResponse);
+        List<PedidoResponseDTO> pedidosResponseDTO = pedidoService.listarTodosPedidos();
+        return ResponseEntity.ok(pedidosResponseDTO);
+    }
+
+    @PutMapping("{id}")
+    public ResponseEntity<PedidoResponseDTO> atualizarDadosDoPedido(@PathVariable long id, @RequestBody PedidoRequestDTO pedidoRequestDTO) {
+        PedidoResponseDTO pedidoResponseDTO = pedidoService.atualizarDadosDoPedido(id, pedidoRequestDTO);
+        return ResponseEntity.ok().body(pedidoResponseDTO);
     }
 
 }

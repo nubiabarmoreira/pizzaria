@@ -11,4 +11,6 @@ public interface PedidoService {
     PedidoResponseDTO buscarPedidoPorId(Long id);
 
     List<PedidoResponseDTO> listarTodosPedidos();
+
+    PedidoResponseDTO atualizarDadosDoPedido(Long id, PedidoRequestDTO pedidoRequestDTO);
 }

@@ -8,4 +8,5 @@ public interface PedidoRepository {
     void save(PedidoDTO pedidoDTO);
     List<PedidoDTO> findAll();
     PedidoDTO findById(Long id);
+    PedidoDTO update(Long id, PedidoDTO pedidoDTO);
 }
