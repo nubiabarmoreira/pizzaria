@@ -7,5 +7,5 @@ import java.util.List;
 public interface ClienteService {
     ClienteDTO criarCliente (String nome, String email);
     List<ClienteDTO> listarTodosClientes ();
-
+    ClienteDTO buscarClientePorId(Long id);
 }

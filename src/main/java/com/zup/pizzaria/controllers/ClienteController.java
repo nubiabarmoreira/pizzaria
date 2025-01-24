@@ -25,4 +25,9 @@ public class ClienteController {
         return clienteService.listarTodosClientes();
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<ClienteDTO> buscarClientePorId (Long id) {
+        ClienteDTO clienteDTO = clienteService.buscarClientePorId(id);
+        return ResponseEntity.ok(clienteDTO);
+    }
 }

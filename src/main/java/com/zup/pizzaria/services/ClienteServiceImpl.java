@@ -24,4 +24,9 @@ public class ClienteServiceImpl implements ClienteService{
     public List<ClienteDTO> listarTodosClientes() {
         return clienteRepository.findAll();
     }
+
+    @Override
+    public ClienteDTO buscarClientePorId(Long id) {
+        return clienteRepository.findById(id);
+    }
 }
