@@ -5,6 +5,9 @@ import com.zup.pizzaria.models.Cliente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Repository
 public class ClienteRepositoryImpl implements ClienteRepository {
     @Autowired
@@ -25,5 +28,13 @@ public class ClienteRepositoryImpl implements ClienteRepository {
         Cliente clienteSalvo = jpaClienteRepository.save(cliente);
 
         return new ClienteDTO(clienteSalvo.getId(), clienteSalvo.getNome(), clienteSalvo.getEmail());
+    }
+
+    @Override
+    public List<ClienteDTO> findAll() {
+        List<Cliente> clientes = jpaClienteRepository.findAll();
+        return clientes.stream()
+                .map(cliente -> new ClienteDTO(cliente.getId(), cliente.getNome(), cliente.getEmail()))
+                .collect(Collectors.toList());
     }
 }
