@@ -33,12 +33,12 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ClienteNaoEncontradoException.class)
     public ResponseEntity<ErrorResponse> handleClienteNaoEncontradoExceptions(ClienteNaoEncontradoException ex, HttpServletRequest request) {
         ErrorResponse errorResponse = new ErrorResponse(
-                HttpStatus.BAD_REQUEST.getReasonPhrase(),
+                HttpStatus.NOT_FOUND.getReasonPhrase(),
                 ex.getMessage(),
                 request.getRequestURI()
         );
 
-        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(PedidoNaoEncontradoException.class)

@@ -1,6 +1,7 @@
 package com.zup.pizzaria.repository;
 
 import com.zup.pizzaria.dtos.PedidoDTO;
+import com.zup.pizzaria.exceptions.ClienteNaoEncontradoException;
 import com.zup.pizzaria.exceptions.PedidoNaoEncontradoException;
 import com.zup.pizzaria.models.Cliente;
 import com.zup.pizzaria.models.Pedido;
@@ -21,7 +22,7 @@ public class PedidoRepositoryImpl implements PedidoRepository {
     @Override
     public void save(PedidoDTO pedidoDTO) {
         Cliente cliente = jpaClienteRepository.findById(pedidoDTO.getClienteId())
-                .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
+                .orElseThrow(() -> new ClienteNaoEncontradoException("Cliente com ID " + pedidoDTO.getClienteId() + " não foi encontrado."));
         Pedido pedidoEntidade = new Pedido(pedidoDTO.getDescricao(), pedidoDTO.getValorTotal(), pedidoDTO.getStatus(), cliente);
 
         jpaPedidoRepository.save(pedidoEntidade);

@@ -21,10 +21,10 @@ public class PedidoServiceImpl implements PedidoService {
 
     @Override
     public PedidoResponseDTO criarPedido(PedidoRequestDTO pedidoRequestDTO) {
-        ClienteDTO clienteDTO = clienteRepository
-                .findById(pedidoRequestDTO.getClienteId());
-        PedidoDTO pedidoDTO = new PedidoDTO(pedidoRequestDTO.getDescricao(), pedidoRequestDTO.getValorTotal(), pedidoRequestDTO.getStatus(), clienteDTO.getId());
+        PedidoDTO pedidoDTO = new PedidoDTO(pedidoRequestDTO.getDescricao(), pedidoRequestDTO.getValorTotal(), pedidoRequestDTO.getStatus(), pedidoRequestDTO.getClienteId());
         pedidoRepository.save(pedidoDTO);
+
+        ClienteDTO clienteDTO = clienteRepository.findById(pedidoRequestDTO.getClienteId());
 
         return new PedidoResponseDTO(clienteDTO.getNome(), clienteDTO.getEmail(), pedidoRequestDTO.getDescricao());
     }
