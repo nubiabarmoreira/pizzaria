@@ -1,11 +1,22 @@
 package com.zup.pizzaria.dtos;
 
 import com.zup.pizzaria.enums.Status;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 public class PedidoRequestDTO {
+    @NotBlank(message = "Descrição é obrigatória")
     private String descricao;
+
+    @NotNull(message = "Valor total é obrigatório")
+    @Positive(message = "Valor total deve ser maior que zero")
     private Double valorTotal;
+
+    @NotNull(message = "Status é obrigatório")
     private Status status;
+
+    @NotNull(message = "Cliente ID é obrigatório")
     private Long clienteId;
 
     public String getDescricao() {

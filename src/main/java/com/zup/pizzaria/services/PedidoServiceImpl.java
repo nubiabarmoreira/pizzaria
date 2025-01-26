@@ -4,6 +4,7 @@ import com.zup.pizzaria.dtos.ClienteDTO;
 import com.zup.pizzaria.dtos.PedidoDTO;
 import com.zup.pizzaria.dtos.PedidoRequestDTO;
 import com.zup.pizzaria.dtos.PedidoResponseDTO;
+import com.zup.pizzaria.exceptions.PedidoInvalidoException;
 import com.zup.pizzaria.repository.ClienteRepository;
 import com.zup.pizzaria.repository.PedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +43,6 @@ public class PedidoServiceImpl implements PedidoService {
 
         return pedidoDTO.stream()
                 .map(pedido -> {
-                    // Buscar cliente para cada pedido
                     ClienteDTO clienteDTO = clienteRepository.findById(pedido.getClienteId());
                     return new PedidoResponseDTO(clienteDTO.getNome(), clienteDTO.getEmail(), pedido.getDescricao());
                 })
@@ -53,11 +53,17 @@ public class PedidoServiceImpl implements PedidoService {
     public PedidoResponseDTO atualizarDadosDoPedido(Long id, PedidoRequestDTO pedidoRequestDTO) {
         PedidoDTO pedidoDTO = pedidoRepository.findById(id);
 
-        if(pedidoRequestDTO.getDescricao() != null && !pedidoRequestDTO.getDescricao().isEmpty()) {
+        if (pedidoRequestDTO.getDescricao() != null) {
+            if (pedidoRequestDTO.getDescricao().isEmpty()) {
+                throw new PedidoInvalidoException("Descrição do pedido não pode ser vazia.");
+            }
             pedidoDTO.setDescricao(pedidoRequestDTO.getDescricao());
         }
 
-        if (pedidoRequestDTO.getValorTotal() != null && pedidoRequestDTO.getValorTotal() > 0) {
+        if (pedidoRequestDTO.getValorTotal() != null) {
+            if (pedidoRequestDTO.getValorTotal() <= 0) {
+                throw new PedidoInvalidoException("O valor total do pedido deve ser maior que zero.");
+            }
             pedidoDTO.setValorTotal(pedidoRequestDTO.getValorTotal());
         }
 
@@ -66,6 +72,9 @@ public class PedidoServiceImpl implements PedidoService {
         }
 
         if (pedidoRequestDTO.getClienteId() != null) {
+            if (pedidoRequestDTO.getClienteId() <= 0) {
+                throw new PedidoInvalidoException("Cliente ID deve ser válido.");
+            }
             pedidoDTO.setClienteId(pedidoRequestDTO.getClienteId());
         }
 

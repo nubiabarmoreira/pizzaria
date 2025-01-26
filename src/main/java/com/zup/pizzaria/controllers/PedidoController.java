@@ -3,6 +3,7 @@ package com.zup.pizzaria.controllers;
 import com.zup.pizzaria.dtos.PedidoRequestDTO;
 import com.zup.pizzaria.dtos.PedidoResponseDTO;
 import com.zup.pizzaria.services.PedidoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +35,7 @@ public class PedidoController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<PedidoResponseDTO> atualizarDadosDoPedido(@PathVariable long id, @RequestBody PedidoRequestDTO pedidoRequestDTO) {
+    public ResponseEntity<PedidoResponseDTO> atualizarDadosDoPedido(@PathVariable long id, @Valid @RequestBody PedidoRequestDTO pedidoRequestDTO) {
         PedidoResponseDTO pedidoResponseDTO = pedidoService.atualizarDadosDoPedido(id, pedidoRequestDTO);
         return ResponseEntity.ok().body(pedidoResponseDTO);
     }
