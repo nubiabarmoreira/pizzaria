@@ -1,9 +1,7 @@
 package com.zup.pizzaria.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.zup.pizzaria.enums.Status;
+import jakarta.persistence.*;
 
 @Entity
 public class Pedido {
@@ -11,11 +9,20 @@ public class Pedido {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String descricao;
-    private Long clienteId;
+    private Double valorTotal;
+    private Status status;
+    @ManyToOne
+    @JoinColumn(name = "cliente_id", referencedColumnName = "id", nullable = false)
+    private Cliente cliente;
 
-    public Pedido(Long clienteId, String descricao) {
-        this.clienteId = clienteId;
+    public Pedido(String descricao, Double valorTotal, Status status, Cliente cliente) {
         this.descricao = descricao;
+        this.valorTotal = valorTotal;
+        this.status = status;
+        this.cliente = cliente;
+    }
+
+    public Pedido() {
     }
 
     public Long getId() {
@@ -34,11 +41,27 @@ public class Pedido {
         this.descricao = descricao;
     }
 
-    public Long getClienteId() {
-        return clienteId;
+    public Double getValorTotal() {
+        return valorTotal;
     }
 
-    public void setClienteId(Long clienteId) {
-        this.clienteId = clienteId;
+    public void setValorTotal(Double valorTotal) {
+        this.valorTotal = valorTotal;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 }

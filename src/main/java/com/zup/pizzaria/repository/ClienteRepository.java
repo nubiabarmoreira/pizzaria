@@ -1,7 +1,11 @@
 package com.zup.pizzaria.repository;
 
-import com.zup.pizzaria.models.Cliente;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.zup.pizzaria.dtos.ClienteDTO;
 
-public interface ClienteRepository extends JpaRepository<Cliente, Long> {
+import java.util.List;
+
+public interface ClienteRepository {
+    ClienteDTO findById(Long id);
+    ClienteDTO save(ClienteDTO clienteDTO);
+    List<ClienteDTO> findAll();
 }
